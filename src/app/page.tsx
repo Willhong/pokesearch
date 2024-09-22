@@ -8,7 +8,7 @@ import {
 export const revalidate = 3600; // 1시간마다 재검증
 
 export default async function Home() {
-  console.log("Home 컴포넌트 렌더링 시작");
+  // console.log("Home 컴포넌트 렌더링 시작");
   const [allPokemonWithStatus, allSpecies] = await Promise.all([
     getAllPokemonWithCaughtStatus(),
     getAllPokemonSpecies(),

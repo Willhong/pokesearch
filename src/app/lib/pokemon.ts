@@ -27,7 +27,7 @@ export interface PokemonSpecies {
 }
 
 interface CaughtStatus {
-  [key: number]: boolean;
+  [key: string]: boolean;
 }
 
 export async function getCaughtStatus(): Promise<CaughtStatus> {
@@ -42,9 +42,11 @@ export async function getCaughtStatus(): Promise<CaughtStatus> {
   // console.log('Caught status data:', data);  // 로그 추가
 
   // 데이터 형식 단순화
-  const caughtStatus: CaughtStatus = {};
+  const caughtStatus: { [key: string]: boolean } = {};
   for (const [key, value] of Object.entries(data)) {
-    caughtStatus[parseInt(key)] = Boolean(value);
+    //remove leading 0
+    const newKey = key.replace(/^0+/, '');
+    caughtStatus[newKey] = Boolean(value);
   }
 
   console.log('Processed caught status:', caughtStatus);  // 로그 추가
@@ -202,6 +204,7 @@ export function searchPokemon(allPokemon: (Pokemon & { caught: boolean, femaleFo
 
 export async function refreshCaughtStatus(pokemon: (Pokemon & { caught: boolean; femaleCaught?: boolean })[]): Promise<(Pokemon & { caught: boolean; femaleCaught?: boolean })[]> {
   const caughtStatus = await getCaughtStatus();
+  console.log('Caught status:', caughtStatus);
   return pokemon.map(p => ({
     ...p,
     caught: caughtStatus[p.id] === true,

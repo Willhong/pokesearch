@@ -30,14 +30,16 @@ export async function GET() {
 
     const caughtStatus: { [key: string]: boolean } = {};
     rows.forEach((row: any) => {
+      if (row[0] === undefined) return;
+      const pokemonId = row[0].replace(/^0+/, '');
+      // console.log('row',row );
     //이미 번호가 있으면 다른 성별 처리는 caughtStatus의 키의 int 값을 parseInt로 변환하여 폼 row[0]에 -f를 붙임
-    if (caughtStatus[row[0]]) {
-      caughtStatus[row[0]+'-f'] = row[2] === '1' || row[2] === '001';
-      console.log(row[0]+'-f', caughtStatus[row[0]+'-f']);
+    if (caughtStatus[pokemonId] !== undefined) {
+      caughtStatus[pokemonId+'-f'] = row[2] === '1' || row[2] === '001';
+      // console.log(row[0]+'-f', caughtStatus[row[0]+'-f']);
     }
     else{
-      caughtStatus[row[0]] = row[2] === '1' || row[2] === '001';
-      console.log(row[0], caughtStatus[row[0]]);
+      caughtStatus[pokemonId] = row[2] === '1' || row[2] === '001';
     }
     });
 

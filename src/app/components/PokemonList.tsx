@@ -119,11 +119,11 @@ export default function PokemonList({
     setIsRefreshing(true);
     try {
       const refreshedPokemon = await refreshCaughtStatus(pokemon);
-      console.log("Refreshed Pokemon:", refreshedPokemon.slice(0, 10)); // 처음 10개 포켓몬의 상태를 로그로 출력
+      // console.log("Refreshed Pokemon:", refreshedPokemon.slice(0, 10)); // 처음 10개 포켓몬의 상태를 로그로 출력
       setPokemon(refreshedPokemon);
       setDisplayedPokemon((prevDisplayed) => {
         const newDisplayed = refreshedPokemon.slice(0, prevDisplayed.length);
-        console.log("New displayed Pokemon:", newDisplayed.slice(0, 10)); // 로그 추가
+        // console.log("New displayed Pokemon:", newDisplayed.slice(0, 10)); // 로그 추가
         return newDisplayed;
       });
     } catch (error) {
